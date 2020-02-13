@@ -1,0 +1,21 @@
+body { 
+text-align: center;
+}
+
+#convertField {
+  width: 200px;
+}
+
+.border, #note{
+  margin-top: 50px;
+}
+
+hr {
+  //margin: 50px; 
+  margin-top: 100px
+}
+
+footer {
+  margin-top: 50px;
+  font-size: 18px;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Metric-Imperial Converter</title>
+    <meta name="description" content="A metric-imperial converter">
+    <link id="favicon" rel="icon" href="https://hyperdev.com/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./public/style.css">
+  </head>
+  <body>
+    <header>
+      <h1>Metric-Imperial Converter</h1>
+    </header>
+    <div id="testui">
+      <form id="convertForm" class="border">
+        <input type="text" id="convertField" name="input" placeholder="3.1mi">
+        <input id="convert" type="submit" value="Convert!">
+      </form>
+      <p id="result"></p>
+      <code id="jsonResult"></code>
+    </div>
+    <hr>
+    <div id="instructions">
+      <h3>Instructions</h3>
+      <p>
+        You can convert values between units:<br>
+          <br>
+          gal (gallons) to l (liters) and vice versa<br>
+          lbs (pounds) to kg (kilograms) and vice versa<br>
+          mi (miles) to km (kilometers) and vice versa<br>
+      </p>
+      <p>Decimal values, one fraction and absence of value are allowed but unit needs to be indicated.</p>
+      <p id="note">Note: You can get the same result that you get filling the form doing a call to the API.<br>
+        <br>
+        Example:<br>
+        <code>/api/convert?input=4gal</code><br>
+        <code>/api/convert?input=1/2km</code><br>
+        <code>/api/convert?input=5.4/3lbs</code><br>
+        <code>/api/convert?input=kg</code><br>
+      </p>
+    </div>
+    <footer>
+      <p>Designed and coded by Sergio Barbosa</p>
+    </footer>
+    
+    <!-- Your web-app is https, so your scripts need to be too -->
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+            crossorigin="anonymous"></script>
+    <script>
+      $(function() {
+        $('#convertForm').submit(function() {
+          event.preventDefault();
+          $.ajax({
+            url: '/api/convert',
+            type: 'get',
+            data: $('#convertForm').serialize(),
+            success: function(data) {
+              $('#result').text(data.string || data);
+              $('#jsonResult').text(JSON.stringify(data));
+            }
+          });
+        });
+      });
+   </script>
+  </body>
+</html>
